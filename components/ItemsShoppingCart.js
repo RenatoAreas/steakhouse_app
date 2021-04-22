@@ -81,26 +81,24 @@ class ItemsShoppingCart extends React.Component {
     }
 }
 
-//função para ler o conteudo da store
+
 const mapStateToProps = (state) => {
     return {
-        //ler os valores do store (utilizo o nome do reducer)
+
         cestaDeCompras: state.shoopingCart.cestaDeCompras,
         valorTotal: state.shoopingCart.valorTotal,
         quantidadeItens: state.shoopingCart.quantidadeItens
     }
 }
 
-//função para disparar as actions
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
-        //definindo as actions que poderão ser disparadas pelo componente
+        
         adicionarItem,
         removerItem
     }, dispatch)
 )
 
-//conectando o componente no REACT-REDUX
 export default connect(mapStateToProps, mapDispatchToProps)(ItemsShoppingCart);
 
 

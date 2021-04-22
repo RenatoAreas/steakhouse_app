@@ -3,47 +3,39 @@ import { View, Text, Alert } from 'react-native';
 import { Card, Paragraph, Button } from 'react-native-paper';
 import { Picker } from '@react-native-community/picker';
 import * as services from '../services/apiServices';
-import { adicionarItem } from '../actions/shoppingCartActions'; //ações
-import { connect } from 'react-redux'; //conexão do componente com o REACT-REDUX
-import { bindActionCreators } from 'redux'; //disparar ações no componente
+import { adicionarItem } from '../actions/shoppingCartActions'; 
+import { connect } from 'react-redux'; 
+import { bindActionCreators } from 'redux'; 
 import { formatCurrency } from '../helpers/formatCurrency';
 
 class Products extends React.Component {
 
-    //construtor
-    //utilizado para declarar o 'state' do componente..
     constructor(props) {
         super(props);
 
-        //declarando o state..
         this.state = {
-            //armazenar os produtos obtidos da API
             products_list: [],
             categorias_list: [],
             idCategoria: 0
         };
     }
 
-    //função executada antes do componente
-    //renderizar o seu conteudo (Before Render)
     componentDidMount() {
         this.consultarCategorias();
         this.consultarProdutos();
     }
 
     consultarProdutos(idCategoria = 0){
-        //realizando uma chamada para a API..
+    
         services.getProdutos(idCategoria)
-            .then( //promisse de sucesso!
+            .then(
                 data => {
-                    //capturando o retorno da API e 
-                    //armazenando dentro do state..
                     this.setState({
                         products_list: data
                     });
                 }
             )
-            .catch( //promisse de erro!
+            .catch(
                 e => {
                     Alert.alert(e.response);
                 }
@@ -51,18 +43,16 @@ class Products extends React.Component {
     }
 
     consultarCategorias(){
-        //realizando uma chamada para a API..
+
         services.getCategorias()
-            .then( //promisse de sucesso!
+            .then(
                 data => {
-                    //capturando o retorno da API e 
-                    //armazenando dentro do state..
                     this.setState({
                         categorias_list: data
                     });
                 }
             )
-            .catch( //promisse de erro!
+            .catch(
                 e => {
                     Alert.alert(e.response);
                 }
@@ -187,27 +177,16 @@ class Products extends React.Component {
     }
 }
 
-//função para ler os dados da STORE..
 const mapStateToProps = (state) => {
     return {
-        //ler o valor total da cesta de compras
-        //para ler um valor do state, precisamos saber o nome do reducer
-        //onde esta gravado a informação desejada, o nome do reducer é
-        //o mesmo definido no index.js no objeto combineReducers (shoopingCart)
         valorTotal: state.shoopingCart.valorTotal
     }
 }
 
-//função para disparar ACTIONS para o REDUX
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
-        //Ações que o componente dispara
-        adicionarItem //método da ação
+        adicionarItem 
     }, dispatch)
 )
 
-//conectando o componente ao REDUX e registrando as funções
-//de disparo de ações e de leitura da store..
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
-
-
