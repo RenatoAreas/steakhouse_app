@@ -1,12 +1,19 @@
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView } from 'react-native';
+import Header from '../components/Header';
+import FormRegister from '../components/FormRegister'
 
 class Register extends React.Component {
 
     render() {
-        return(
+        return (
             <ScrollView>
-                <Text>Register!</Text>
+                <Header
+                    navigation={this.props.navigation}
+                />
+                <FormRegister
+                    navigation={this.props.navigation}
+                />
             </ScrollView>
         )
     }
@@ -14,4 +21,3 @@ class Register extends React.Component {
 }
 
 export default Register;
-
