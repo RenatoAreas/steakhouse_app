@@ -53,4 +53,17 @@ export const postLogin = (cliente) => {
         )
 }
 
-
+//função para realizar uma chamada POST
+//para finalizar um pedido na API
+export const postPedido = (pedido, accessToken) => {
+    return axios.post(getApiUrl() + "/api/pedido", pedido, {
+        headers : {
+            'Authorization': `Bearer ${accessToken}`
+            }
+        })
+        .then(
+            response => {
+                return response.data;
+            }
+        )
+}
