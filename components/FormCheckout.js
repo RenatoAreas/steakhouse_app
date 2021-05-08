@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { formatCurrency } from '../helpers/formatCurrency';
 import * as apiServices from '../services/apiServices';
 import * as cepServices from '../services/cepServices';
+import { clear } from '../actions/shoppingCartActions';
 
 class FormCheckout extends React.Component {
 
@@ -57,6 +58,9 @@ class FormCheckout extends React.Component {
             .then(
                 data => {
                     Alert.alert('Pedido finalizado com sucesso!');
+                    this.props.clear();
+
+                    this.props.navigation.navigate('home');
                 }
             )
             .catch(
@@ -223,7 +227,7 @@ const mapStateToProps = (state) => {
 //função para disparar ações neste componente
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
-        //TODO
+        clear
     }, dispatch)
 )
 
